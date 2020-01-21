@@ -18,9 +18,9 @@ function isEngulfed:Boolean;
 function isHammerLike:Boolean;
   BEGIN
     IF ((Abertura < Fechamento)) THEN
-      Result:= ((ABS(Fechamento - Maxima) < (ABS(Abertura - Fechamento))) e (ABS(Abertura - Minima) > (ABS(Abertura - Fechamento) * 2)))
+      Result:= ((Minima < Minima[1]) e (ABS(Fechamento - Maxima) < (ABS(Abertura - Fechamento))) e (ABS(Abertura - Minima) > (ABS(Abertura - Fechamento) * 2)))
     ELSE IF ((Abertura > Fechamento) e (Fechamento = Minima)) THEN
-      Result:= ((ABS(Fechamento - Minima) < (ABS(Abertura - Fechamento))) e (ABS(Abertura - Maxima) > (ABS(Abertura - Fechamento) * 2)))
+      Result:= ((Maxima < Maxima[1]) e (ABS(Fechamento - Minima) < (ABS(Abertura - Fechamento))) e (ABS(Abertura - Maxima) > (ABS(Abertura - Fechamento) * 2)))
     ELSE
       Result := false;
   END;
@@ -31,15 +31,45 @@ BEGIN
   ELSE IF (isBearish(Abertura, Fechamento)) THEN
               PaintBar(clRed);
 
-  IF (C_Doji(14) = 1) then
-              PaintBar(clYellow);
-
   IF (isHammerLike) then
               PaintBar(clFuchsia);
-                
+
+  IF (C_Doji(22) = 1) then
+              PaintBar(clYellow);
+  
   IF ((isBearish(Abertura[1], Fechamento[1])) e
            (isBullish(Abertura, Fechamento)) e
            (isEngulfed)) then
               PaintBar(clWhite);  
 
 END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
