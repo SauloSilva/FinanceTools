@@ -1,0 +1,108 @@
+study("Setup 9.1.2.3.4 and PC", shorttitle="9.1.2.3.4", overlay=true)
+
+buyColor=#617ca9
+sellColor=#c2185b
+
+//EMA 9
+ema9 = ema(close,9)
+ema9Color = ema9 > ema9[1] and close > ema9 ? lime : ema9 < ema9[1] and close < ema9 ? lime : yellow
+plot( ema9, color=ema9Color, style=line, title="EMA9", linewidth=2)
+
+//EMA 21
+ema21 = ema(close,21)
+plot( ema21, color=sellColor, style=line, title="EMA21", linewidth=1)
+
+//EMA 80
+ema80 = ema(close,80)
+plot( ema80, color=#ff4b05, style=line, title="EMA80", linewidth=1)
+
+//EMA 200
+ema200 = ema(close,200)
+plot( ema200, color=white, style=line, title="EMA200", linewidth=1)
+
+
+// ALL SETUPS PRESENTED //
+
+//SETUP PC
+ema21b1 = ema21[5]<ema21[4] and ema21[4]<ema21[3] and ema21[3]<ema21[2] and ema21[2]<=ema21[1] and ema21[1]<=ema21
+ema21b2 = low<=ema21 and low[1]>ema21[1] and low[2]>ema21[2] and low[3]>ema21[3] and close>=ema21
+
+ema21s1 = ema21[5]>ema21[4] and ema21[4]>ema21[3] and ema21[3]>ema21[2] and ema21[2]>=ema21[1] and ema21[1]>=ema21
+ema21s2 = high>=ema21 and high[1]<ema21[1] and high[2]<ema21[2] and high[3]<ema21[3]  and close<=ema21
+
+condpceb = ema21b1 and ema21b2
+condpces = ema21s1 and ema21s2
+
+plotshape(condpceb, title="Buy PC", color=buyColor, style=shape.labelup,size=size.small, location=location.belowbar,text="Buy PC", textcolor=white)
+plotshape(condpces, title="Sell PC", color=sellColor, style=shape.labeldown,size=size.small, location=location.abovebar, text="Sell PC", textcolor=white)
+
+//SETUP 9.1
+ema91s1 = ema9[5]<ema9[4] and ema9[4]<ema9[3] and ema9[3]<ema9[2] and ema9[2]<ema9[1] and ema9[1]>ema9
+ema91s2 = close<ema9
+
+ema91b1 = ema9[5]>ema9[4] and ema9[4]>ema9[3] and ema9[3]>ema9[2] and ema9[2]>ema9[1] and ema9[1]<ema9
+ema91b2 = close>ema9
+
+cond91b = ema91b1 and ema91b2
+cond91s = ema91s1 and ema91s2
+
+plotshape(cond91b, title="Buy 9.1", color=buyColor, style=shape.arrowup,size=size.tiny, location=location.belowbar,text="9.1", textcolor=white)
+plotshape(cond91s, title="Sell 9.1", color=sellColor, style=shape.arrowdown,size=size.tiny, location=location.abovebar, text="9.1", textcolor=white)
+
+barcolor(cond91b ? buyColor : na)
+barcolor(cond91s ? sellColor : na)
+
+
+//SETUP 9.2
+ema92b1 = ema9[5]<ema9[4] and ema9[4]<ema9[3] and ema9[3]<ema9[2] and ema9[2]<ema9[1] and ema9[1]<=ema9
+ema92b2 = ema9>=ema9[1] and close[1]>close[2] and close<low[1]
+
+ema92s1 = ema9[5]>ema9[4] and ema9[4]>ema9[3] and ema9[3]>ema9[2] and ema9[2]>ema9[1] and ema9[1]>=ema9
+ema92s2 = ema9<=ema9[1] and close[1]<close[2] and close>high[1]
+
+cond92b = ema92b1 and ema92b2
+cond92s = ema92s1 and ema92s2
+
+plotshape(cond92b, title="Buy 9.2", color=buyColor, style=shape.arrowup,size=size.tiny, location=location.belowbar,text="9.2", textcolor=white)
+plotshape(cond92s, title="Sell 9.2", color=sellColor, style=shape.arrowdown,size=size.tiny, location=location.abovebar, text="9.2", textcolor=white)
+
+barcolor(cond92b? buyColor : na)
+barcolor(cond92s? sellColor : na)
+
+//SETUP 9.3
+ema93b1 = ema9[7]<ema9[6] and ema9[6]<ema9[5] and ema9[5]<ema9[4] and ema9[4]<ema9[3] and ema9[3]<ema9[2] and ema9[2]<ema9[1] and ema9[1]<=ema9
+ema93b2 = close[1]<close[2] and close<close[2] and close[2]>close[3] and close[1]>low[2]
+
+ema93s1 = ema9[7]>ema9[6] and ema9[6]>ema9[5] and ema9[5]>ema9[4] and ema9[4]>ema9[3] and ema9[3]>ema9[2] and ema9[2]>ema9[1] and ema9[1]>=ema9
+ema93s2 = close[1]>close[2] and close>close[2] and close[2]<close[3] and close[1]<high[2]
+
+cond93b = ema93b1 and ema93b2
+cond93s = ema93s1 and ema93s2
+
+plotshape(cond93b, title="Buy 9.3", color=buyColor, style=shape.arrowup,size=size.tiny, location=location.belowbar,text="9.3", textcolor=white)
+plotshape(cond93s, title="Sell 9.3", color=sellColor, style=shape.arrowdown,size=size.tiny, location=location.abovebar, text="9.3", textcolor=white)
+
+barcolor(cond93b? buyColor : na)
+barcolor(cond93s? sellColor : na)
+
+//SETUP 9.4
+ema94b1 = ema9[5]<ema9[4] and ema9[4]<ema9[3] and ema9[3]<ema9[2] and ema9[2]>ema9[1] and ema9[1]<ema9
+ema94b2 = low>=low[1]
+
+ema94s1 = ema9[5]>ema9[4] and ema9[4]>ema9[3] and ema9[3]>ema9[2] and ema9[2]<ema9[1] and ema9[1]>ema9
+ema94s2 = close<ema9 
+
+cond94b = ema94b1 and ema94b2
+cond94s = ema94s1 and ema94s2
+
+plotshape(cond94b, title="Buy 9.4", color=buyColor, style=shape.arrowup,size=size.tiny, location=location.belowbar,text="9.4", textcolor=white)
+plotshape(cond94s, title="Sell 9.4", color=sellColor, style=shape.arrowdown,size=size.tiny, location=location.abovebar, text="9.4", textcolor=white)
+
+barcolor(cond94b? buyColor : na)
+barcolor(cond94s? sellColor : na)
+
+g = (close>ema9 and ema9>ema9[1])
+//bgcolor(g? #3c2f80 :na, transp=90)
+
+r = (close<ema9 and ema9<ema9[1])
+//bgcolor(r?#c2185b:na, transp=90)
