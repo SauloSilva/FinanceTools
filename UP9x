@@ -1,0 +1,42 @@
+var
+
+comprado : integer;
+entrada  : float;
+stop     : float;
+gain     : float;
+
+begin
+   if (comprado > 0) then
+     begin
+       PaintBar(rgb(111, 142, 255));
+     end;  
+
+   if ((comprado > 0) e
+       ((MINIMA + 0.5) < SafeZoneUpTrend(2.00, 7, 0))) then
+     begin
+       PaintBar(clYellow);
+       comprado:=0;
+     end;
+
+   if ((comprado > 0) e
+       (FECHAMENTO < stop)) then
+     begin
+       PaintBar(clYellow);
+       comprado:=0;
+     end;
+
+
+   if ((comprado=0) e
+       (MediaExp(9, close)[5] > (MediaExp(9, close)[4] + 0.01)) e
+       (MediaExp(9, close)[4] > (MediaExp(9, close)[3] + 0.01)) e
+       (MediaExp(9, close)[3] > (MediaExp(9, close)[2] + 0.01)) e
+       (MediaExp(9, close)[2] < (MediaExp(9, close)[1] + 0.01)) e
+       (MediaExp(9, close)[1] < (MediaExp(9, close) + 0.01)) e
+       (MAXIMA[1] > MAXIMA[2]) e
+       (MAXIMA > MAXIMA[1])) then
+         begin
+           PaintBar(clBlue);
+           comprado:=2;
+           stop:=MINIMA - 0.5;
+         end;
+end;
