@@ -1,0 +1,23 @@
+study(title="Alpha/Beta", shorttitle="Alpha/Beta")
+
+////SHOULD BE USED TOGETHER WITH "Beta" INDICATOR
+//Alpha is a measure of the active return on an investment, the performance of that investment compared to a suitable market index, where 0.01 = 1%
+//alpha < 0: the investment has earned too little for its risk (or, was too risky for the return)
+//alpha = 0: the investment has earned a return adequate for the risk taken
+//alpha > 0: the investment has a return in excess of the reward for the assumed risk
+
+//Beta Calculation
+sym = "IBOV", res=period, src = close, length = input(title="rolling beta window",defval=300, minval=1)
+ovr = security(sym, res, src)
+ret = ((close - close[1])/close)
+retb = ((ovr - ovr[1])/ovr)
+secd = stdev(ret, length), mktd = stdev(retb, length)
+Beta = correlation(ret, retb, length) * secd / mktd
+
+//Alpha Calculation
+y = input(title="alpha period", type=integer, defval=90, minval=1, maxval=1000)
+ret2 = ((close - close[y])/close)
+retb2 = ((ovr - ovr[y])/ovr)
+alpha = ret2 - retb2*Beta
+plot(alpha, color=green, style=line, transp=40)
+plot(Beta, color=red, style=line, transp=40)
