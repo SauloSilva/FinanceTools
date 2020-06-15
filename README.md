@@ -1,2 +1,3 @@
-# ProfitChartTools
-Ferramentas para utilização no profitchart
+# FinanceTools
+
+Tools to improve visibility of opportunities of financial market
